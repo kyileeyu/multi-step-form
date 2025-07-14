@@ -27,6 +27,19 @@ export const BasicInfo = () => {
           )}
         />
         <Controller
+          name={"author"}
+          control={control}
+          render={(field) => <input {...field} placeholder="저자" />}
+        />
+        <Controller
+          name={"pageCount"}
+          control={control}
+          rules={{ required: "페이지 수는 필수입니다." }}
+          render={(field) => (
+            <input {...field} type={"number"} placeholder="페이지 수" />
+          )}
+        />
+        <Controller
           name={"status"}
           control={control}
           rules={{ required: "상태는 필수입니다." }}
