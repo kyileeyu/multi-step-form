@@ -1,15 +1,24 @@
+import {useState} from "react";
+import {BasicInfo, BookRecord, PublicOrNot, Quotes, Rating} from "@/features/bookRecord/ui";
+
 const Book = () => {
+  const [funnelStep, setFunnelStep] = useState<number>(1);
 
 
-    return (
-        <div
-            className={` grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-        >
-        <h1>Book Page</h1>
-        <p>This is the book page content.</p>
-            보이니?
-        </div>
-    );
+  switch (funnelStep) {
+      case 1:
+          return <BasicInfo/>;
+      case 2:
+            return <Rating/>;
+      case 3:
+        return <BookRecord/>;
+      case 4:
+            return <Quotes/>
+      case 5:
+          return <PublicOrNot/>;
+    default:
+        return <BasicInfo/>;
+  }
 }
 
 export default Book;
