@@ -6,7 +6,6 @@ import {
   PublicOrNot,
 } from "@/features/bookRecord/ui";
 
-// Step 컴포넌트를 배열로 관리 (0-based)
 export const STEP_COMPONENTS = [
   BasicInfo,
   Rating,
