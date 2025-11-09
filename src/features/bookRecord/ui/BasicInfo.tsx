@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
-import { BOOK_RECORD_STATUS } from "@/features/bookRecord/model/type";
 import { BookRecordFormData } from "../model/schema";
+import { BOOK_RECORD_STATUS } from "../model/constants";
 
 export const BasicInfo = () => {
   const { control } = useFormContext<BookRecordFormData>();
