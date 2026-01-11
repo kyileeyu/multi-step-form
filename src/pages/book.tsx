@@ -1,4 +1,4 @@
-import BookPage from "@/widget/BookPage";
+import BookPage from "@/features/bookRecord/ui/BookPage";
 
 const Book = () => {
   return <BookPage />;
