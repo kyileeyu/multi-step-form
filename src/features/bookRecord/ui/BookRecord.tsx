@@ -1,11 +1,10 @@
-import styled from "@emotion/styled";
-import { FormTextarea } from "@/shared/components";
+import { FormTextarea, FormWrapper, FormDescription } from "@/shared/components";
 import { BookRecordFormData } from "../model/schema";
 
 export const BookRecord = () => {
   return (
     <FormWrapper>
-      <Description>책을 읽고 느낀 점을 자유롭게 작성해주세요</Description>
+      <FormDescription>책을 읽고 느낀 점을 자유롭게 작성해주세요</FormDescription>
       <FormTextarea<BookRecordFormData>
         name="record"
         rows={10}
@@ -14,15 +13,3 @@ export const BookRecord = () => {
     </FormWrapper>
   );
 };
-
-const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
-
-const Description = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.colors.textSecondary};
-  margin: 0;
-`;

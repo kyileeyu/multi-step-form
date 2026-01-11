@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { Controller, useFormContext } from "react-hook-form";
+import { FormWrapper, FormDescription } from "@/shared/components";
 
 export const PublicOrNot = () => {
   const { control } = useFormContext();
   return (
-    <FormWrapper>
-      <Description>이 독서 기록을 다른 사람들과 공유할까요?</Description>
+    <FormWrapper gap="lg">
+      <FormDescription>이 독서 기록을 다른 사람들과 공유할까요?</FormDescription>
       <Controller
         name={"isPublic"}
         control={control}
@@ -23,18 +24,6 @@ export const PublicOrNot = () => {
     </FormWrapper>
   );
 };
-
-const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`;
-
-const Description = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.colors.textSecondary};
-  margin: 0;
-`;
 
 const CheckboxLabel = styled.label`
   display: flex;

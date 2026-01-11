@@ -1,5 +1,4 @@
-import styled from "@emotion/styled";
-import { FormInput, FormSelect } from "@/shared/components";
+import { FormInput, FormSelect, FormWrapper } from "@/shared/components";
 import { BookRecordFormData } from "../model/schema";
 import { BOOK_RECORD_STATUS } from "../model/constants";
 
@@ -38,9 +37,3 @@ export const BasicInfo = () => {
     </FormWrapper>
   );
 };
-
-const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-`;

@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { Controller, useFormContext } from "react-hook-form";
+import { FormWrapper } from "@/shared/components";
 import { StarRating } from "@/shared/components/StarRating";
 
 export const Rating = () => {
   const { control } = useFormContext();
 
   return (
-    <FormWrapper>
+    <FormWrapper gap="lg">
       <FormField>
         <Label>평점</Label>
         <Controller
@@ -41,12 +42,6 @@ export const Rating = () => {
     </FormWrapper>
   );
 };
-
-const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`;
 
 const FormField = styled.div`
   display: flex;
