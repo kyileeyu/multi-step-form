@@ -5,28 +5,17 @@ import {
   FieldValues,
   useFormContext,
 } from "react-hook-form";
+import styled from "@emotion/styled";
 
 interface FormTextareaProps<T extends FieldValues>
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "name"> {
   name: FieldPath<T>;
-  errorClassName?: string;
+  label?: string;
 }
 
-/**
- * FormTextarea - textarea 요소를 위한 form 컴포넌트
- *
- * 기능:
- * - Controller 보일러플레이트 제거
- * - 자동 에러 메시지 표시
- * - 모든 textarea HTML 속성 지원
- *
- * @example
- * <FormTextarea name="record" rows={10} placeholder="독서 기록..." />
- * <FormTextarea name="description" className="border p-2 rounded" />
- */
 export function FormTextarea<T extends FieldValues>({
   name,
-  errorClassName = "text-red-500 text-sm",
+  label,
   ...textareaProps
 }: FormTextareaProps<T>) {
   const { control } = useFormContext<T>();
@@ -36,11 +25,54 @@ export function FormTextarea<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <>
-          <textarea {...textareaProps} {...field} />
-          {error && <p className={errorClassName}>{error.message}</p>}
-        </>
+        <FormField>
+          {label && <Label>{label}</Label>}
+          <Textarea {...textareaProps} {...field} $hasError={!!error} />
+          {error && <ErrorMessage>{error.message}</ErrorMessage>}
+        </FormField>
       )}
     />
   );
 }
+
+const FormField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs};
+`;
+
+const Label = styled.label`
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme }) => theme.colors.textSecondary};
+`;
+
+const Textarea = styled.textarea<{ $hasError?: boolean }>`
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing.md};
+  border: 1px solid
+    ${({ theme, $hasError }) =>
+      $hasError ? theme.colors.error : theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.md};
+  font-size: ${({ theme }) => theme.fontSize.md};
+  background: ${({ theme }) => theme.colors.card};
+  color: ${({ theme }) => theme.colors.text};
+  transition: border-color 0.2s;
+  resize: vertical;
+  min-height: 100px;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme, $hasError }) =>
+      $hasError ? theme.colors.error : theme.colors.primary};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.textMuted};
+  }
+`;
+
+const ErrorMessage = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.colors.error};
+  margin: 0;
+`;

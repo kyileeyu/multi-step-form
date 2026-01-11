@@ -1,22 +1,53 @@
+import styled from "@emotion/styled";
 import { Controller, useFormContext } from "react-hook-form";
 
 export const PublicOrNot = () => {
   const { control } = useFormContext();
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-semibold">공개여부</h2>
-      <div className={"flex flex-col gap-5"}>
-        <Controller
-          name={"isPublic"}
-          control={control}
-          render={({ field }) => (
-            <label>
-              공개할까요?
-              <input {...field} type={"checkbox"} />
-            </label>
-          )}
-        />
-      </div>
-    </div>
+    <FormWrapper>
+      <Description>이 독서 기록을 다른 사람들과 공유할까요?</Description>
+      <Controller
+        name={"isPublic"}
+        control={control}
+        render={({ field }) => (
+          <CheckboxLabel>
+            <Checkbox
+              type="checkbox"
+              checked={field.value || false}
+              onChange={field.onChange}
+            />
+            공개하기
+          </CheckboxLabel>
+        )}
+      />
+    </FormWrapper>
   );
 };
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.lg};
+`;
+
+const Description = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin: 0;
+`;
+
+const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+  font-size: ${({ theme }) => theme.fontSize.md};
+  color: ${({ theme }) => theme.colors.text};
+  cursor: pointer;
+`;
+
+const Checkbox = styled.input`
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: ${({ theme }) => theme.colors.primary};
+`;
