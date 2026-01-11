@@ -1,30 +1,76 @@
+import styled from "@emotion/styled";
 import { Controller, useFormContext } from "react-hook-form";
-import { Rating as StarRating } from "@mui/material";
+import { StarRating } from "@/shared/components/StarRating";
 
 export const Rating = () => {
   const { control } = useFormContext();
 
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-semibold">평점</h2>
-      <p className="text-sm text-gray-600">책을 평가해주세요</p>
-      <div className={"flex flex-col gap-5"}>
+    <FormWrapper>
+      <FormField>
+        <Label>평점</Label>
+        <Controller
+          name={"rating"}
+          control={control}
+          render={({ field }) => (
+            <StarRating
+              precision={0.5}
+              value={field.value || 0}
+              onChange={field.onChange}
+            />
+          )}
+        />
+      </FormField>
+
+      <FormField>
         <Controller
           name={"isRecommended"}
           control={control}
           render={({ field }) => (
-            <label>
+            <CheckboxLabel>
+              <Checkbox
+                type="checkbox"
+                checked={field.value || false}
+                onChange={field.onChange}
+              />
               이 책을 추천합니다
-              <input {...field} type={"checkbox"} />
-            </label>
+            </CheckboxLabel>
           )}
         />
-        <Controller
-          name={"rating"}
-          control={control}
-          render={({ field }) => <StarRating precision={0.5} {...field} />}
-        />
-      </div>
-    </div>
+      </FormField>
+    </FormWrapper>
   );
 };
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.lg};
+`;
+
+const FormField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm};
+`;
+
+const Label = styled.label`
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme }) => theme.colors.textSecondary};
+`;
+
+const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+  font-size: ${({ theme }) => theme.fontSize.md};
+  color: ${({ theme }) => theme.colors.text};
+  cursor: pointer;
+`;
+
+const Checkbox = styled.input`
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: ${({ theme }) => theme.colors.primary};
+`;
