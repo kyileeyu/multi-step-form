@@ -1,18 +1,15 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { FormTextarea, FormWrapper, FormDescription } from "@/shared/components";
+import { BookRecordFormData } from "../model/schema";
 
 export const Quotes = () => {
-  const { control } = useFormContext();
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-semibold">인용구</h2>
-      <p className="text-sm text-gray-600">인용구를 작성해주세요</p>
-      <div className={"flex flex-col gap-5"}>
-        <Controller
-          name={"quotes"}
-          control={control}
-          render={({ field }) => <input {...field} type={""} />}
-        />
-      </div>
-    </div>
+    <FormWrapper>
+      <FormDescription>기억에 남는 문장을 기록해주세요</FormDescription>
+      <FormTextarea<BookRecordFormData>
+        name="quotes"
+        rows={6}
+        placeholder="인용구를 입력하세요..."
+      />
+    </FormWrapper>
   );
 };
