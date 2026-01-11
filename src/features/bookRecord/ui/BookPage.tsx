@@ -1,11 +1,22 @@
-import { FunnelLayout } from "@/features/bookRecord/ui";
 import { FormProvider } from "react-hook-form";
 import { StepProvider, useStepContext } from "@/features/bookRecord/model/StepContext";
 import { useBookRecordForm } from "@/features/bookRecord/model/useBookRecordForm";
-import { STEP_COMPONENTS } from "@/features/bookRecord/model/constants";
+import { FunnelLayout } from "./FunnelLayout";
+import { BasicInfo } from "./BasicInfo";
+import { Rating } from "./Rating";
+import { BookRecord } from "./BookRecord";
+import { Quotes } from "./Quotes";
+import { PublicOrNot } from "./PublicOrNot";
+
+const STEP_COMPONENTS = [
+  BasicInfo,
+  Rating,
+  BookRecord,
+  Quotes,
+  PublicOrNot,
+] as const;
 
 const BookPage = () => {
-  // 한 줄로 Form + Validation + LocalStorage 모두 설정!
   const methods = useBookRecordForm();
 
   return (
@@ -17,7 +28,6 @@ const BookPage = () => {
   );
 };
 
-// Context 내부에서만 사용 가능하도록 분리
 const BookPageContent = () => {
   const { currentStep } = useStepContext();
   const StepComponent = STEP_COMPONENTS[currentStep];
